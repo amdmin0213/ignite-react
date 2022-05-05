@@ -27,6 +27,8 @@ export function Home() {
       name: newSkill,
     };
 
+    console.log('New Skill', data);
+
     setMySkills(oldState => [...oldState, data]);
   }
 
