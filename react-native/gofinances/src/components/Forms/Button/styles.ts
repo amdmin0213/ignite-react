@@ -3,6 +3,7 @@ import { RFValue } from 'react-native-responsive-fontsize'
 import styled from 'styled-components/native'
 import { TouchableOpacity } from 'react-native'
 
+// @ts-ignore
 export const Container = styled(RectButton)`
   width: 100%;
   background-color: ${({ theme }) => theme.colors.secondary};

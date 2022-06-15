@@ -1,5 +1,5 @@
 import styled from 'styled-components/native'
-import { FlatList } from 'react-native'
+import { FlatList, FlatListProps } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize'
 import {
@@ -52,10 +52,12 @@ export const UserName = styled.Text`
   font-size: ${RFValue(18)}px;
   font-family: ${({ theme }) => theme.fonts.bold};
 `
+// @ts-ignore
 export const LogoutButton = styled(BorderlessButton)``
 
+// @ts-ignore
 export const Icon = styled(Feather)`
-  color: ${({ theme }) => theme.colors.text_dark};
+  color: ${({ theme }) => theme.colors.attention};
   font-size: ${RFValue(30)}px;
 `
 
@@ -80,9 +82,11 @@ export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
   margin-bottom: 16px;
 `
-export const TransactionsList = styled(
-  FlatList as new () => FlatList<DataListProps>
+export const TransactionList = styled(
+  FlatList as new (
+    props: FlatListProps<DataListProps>
+  ) => FlatList<DataListProps>
 ).attrs({
   showsVerticalScrollIndicator: false,
-  contentContainerStyle: { paddingBottom: getBottomSpace() }
+  contentContainerStyle: { paddingBottom: 10 }
 })``

@@ -28,20 +28,21 @@ export const Title = styled.Text<TypeProps>`
     type === 'total' ? theme.colors.shape : theme.colors.text_dark};
 `
 
+// @ts-ignore
 export const Icon = styled(Feather)<TypeProps>`
   font-size: ${RFValue(40)}px;
-  ${props =>
-    props.type === 'up' &&
+  ${({ type }) =>
+    type === 'up' &&
     css`
       color: ${({ theme }) => theme.colors.success};
     `}
-  ${props =>
-    props.type === 'down' &&
+  ${({ type }) =>
+    type === 'down' &&
     css`
       color: ${({ theme }) => theme.colors.attention};
     `}
-   ${props =>
-    props.type === 'total' &&
+   ${({ type }) =>
+    type === 'total' &&
     css`
       color: ${({ theme }) => theme.colors.shape};
     `}

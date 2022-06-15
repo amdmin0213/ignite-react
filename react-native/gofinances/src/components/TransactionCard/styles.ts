@@ -38,6 +38,7 @@ export const Category = styled.View`
   align-items: center;
 `
 
+// @ts-ignore
 export const Icon = styled(Feather)`
   font-size: ${RFValue(20)}px;
   color: ${({ theme }) => theme.colors.text};

@@ -38,6 +38,7 @@ export const Container = styled(TouchableOpacity)<ContainerProps>`
     `}
 `
 
+// @ts-ignore
 export const Icon = styled(Feather)<IconProps>`
   font-size: ${RFValue(24)}px;
   margin-right: 12px;
