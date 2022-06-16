@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
-import { Modal, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native'
+import { Modal, Keyboard, Alert } from 'react-native'
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Input } from '../../components/Forms/Input'
+import { Input } from '../../components/Form/Input'
 import { useForm } from 'react-hook-form'
-import { InputForm } from '../../components/Forms/InputForm'
-import { Button } from '../../components/Forms/Button'
-import { TransactionTypeButton } from '../../components/Forms/TransactionTypeButton'
-import { CategorySelectButton } from '../../components/Forms/CategorySelectButton'
+import { InputForm } from '../../components/Form/InputForm'
+import { Button } from '../../components/Form/Button'
+import { TransactionTypeButton } from '../../components/Form/TransactionTypeButton'
+import { CategorySelectButton } from '../../components/Form/CategorySelectButton'
 import { CategorySelect } from '../CategorySelect'
 import {
   Container,
@@ -72,7 +73,11 @@ export function Register() {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback
+      onPress={Keyboard.dismiss}
+      containerStyle={{ flex: 1 }}
+      style={{ flex: 1 }}
+    >
       <Container>
         <Header>
           <Title>Cadastro</Title>

@@ -4,7 +4,7 @@ import styled from 'styled-components/native'
 import { TouchableOpacity } from 'react-native'
 
 // @ts-ignore
-export const Container = styled(RectButton)`
+export const Container = styled(TouchableOpacity)`
   width: 100%;
   background-color: ${({ theme }) => theme.colors.secondary};
   border-radius: 5px;

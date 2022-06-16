@@ -1,6 +1,6 @@
 import React from 'react'
 import { FlatList } from 'react-native-gesture-handler'
-import { Button } from '../../components/Forms/Button'
+import { Button } from '../../components/Form/Button'
 import { categories } from '../../utils/categories'
 import {
   Category,
@@ -18,7 +18,7 @@ interface Category {
   name: string
 }
 
-interface Props {
+export interface Props {
   category: Category
   setCategory: (category: Category) => void
   closeSelectCategory: () => void
@@ -28,7 +28,7 @@ export function CategorySelect({
   category,
   setCategory,
   closeSelectCategory
-}: Props): JSX.Element {
+}: Props) {
   function handleCategorySelect(category: Category) {
     setCategory(category)
   }
