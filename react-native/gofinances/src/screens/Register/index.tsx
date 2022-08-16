@@ -1,15 +1,14 @@
-import React, { useState } from 'react'
-import { Modal, Keyboard, Alert } from 'react-native'
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
-import * as Yup from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { Input } from '../../components/Form/Input'
-import { useForm } from 'react-hook-form'
-import { InputForm } from '../../components/Form/InputForm'
-import { Button } from '../../components/Form/Button'
-import { TransactionTypeButton } from '../../components/Form/TransactionTypeButton'
-import { CategorySelectButton } from '../../components/Form/CategorySelectButton'
-import { CategorySelect } from '../CategorySelect'
+import React, { useState, useEffect } from "react";
+import { Modal, Keyboard, Alert, TouchableWithoutFeedback } from "react-native";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useForm } from "react-hook-form";
+import { InputForm } from "../../components/Form/InputForm";
+import { Button } from "../../components/Form/Button";
+import { TransactionTypeButton } from "../../components/Form/TransactionTypeButton";
+import { CategorySelectButton } from "../../components/Form/CategorySelectButton";
+import { CategorySelect } from "../CategorySelect";
 import {
   Container,
   Header,
@@ -17,27 +16,29 @@ import {
   Form,
   Fields,
   TransactionTypes
-} from './styles'
+} from "./styles";
 
 export interface FormData {
-  name: string
-  amount: string
+  name: string;
+  amount: string;
 }
 
 const schema = Yup.object().shape({
-  name: Yup.string().required('Nome é obrigatório'),
+  name: Yup.string().required("Nome é obrigatório"),
   amount: Yup.number()
-    .typeError('Informe um valor numérico')
-    .positive('O valor não pode ser negativo')
-})
+    .typeError("Informe um valor numérico")
+    .positive("O valor não pode ser negativo")
+});
 
 export function Register() {
   const [category, setCategory] = useState({
-    key: 'category',
-    name: 'Categoria'
-  })
-  const [transactionType, setTransactionType] = useState('')
-  const [categoryModalOpen, setCategoryModalOpen] = useState(false)
+    key: "category",
+    name: "Categoria"
+  });
+  const [transactionType, setTransactionType] = useState("");
+  const [categoryModalOpen, setCategoryModalOpen] = useState(false);
+
+  const dataKey = "@gofinances:transactions";
 
   const {
     control,
@@ -45,39 +46,51 @@ export function Register() {
     formState: { errors }
   } = useForm({
     resolver: yupResolver(schema)
-  })
+  });
 
-  function handleTransactionTypeSelect(type: 'up' | 'down') {
-    setTransactionType(type)
+  function handleTransactionTypeSelect(type: "up" | "down") {
+    setTransactionType(type);
   }
 
   function handleOpenSelectCategoryModal() {
-    setCategoryModalOpen(true)
+    setCategoryModalOpen(true);
   }
 
   function handleCloseSelectCategoryModal() {
-    setCategoryModalOpen(false)
+    setCategoryModalOpen(false);
   }
 
-  function handleRegister(form: FormData) {
-    if (!transactionType) return Alert.alert('Selecione o tipo da transação')
-    if (category.key === 'category') return Alert.alert('Selecione a categoria')
+  async function handleRegister(form: FormData) {
+    if (!transactionType) return Alert.alert("Selecione o tipo da transação");
+    if (category.key === "category")
+      return Alert.alert("Selecione a categoria");
 
     const data = {
       name: form.name,
       amount: form.amount,
       transactionType,
       category: category.key
+    };
+    console.log(data);
+
+    try {
+      await AsyncStorage.setItem(dataKey, JSON.stringify(data));
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Não foi possível salvar a transação");
     }
-    console.log(data)
   }
 
+  useEffect(() => {
+    async function loadData() {
+      const data = await AsyncStorage.getItem(dataKey);
+      console.log("data", JSON.parse(data!));
+    }
+    loadData();
+  }, []);
+
   return (
-    <TouchableWithoutFeedback
-      onPress={Keyboard.dismiss}
-      containerStyle={{ flex: 1 }}
-      style={{ flex: 1 }}
-    >
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <Container>
         <Header>
           <Title>Cadastro</Title>
@@ -103,14 +116,14 @@ export function Register() {
               <TransactionTypeButton
                 type="up"
                 title="Income"
-                onPress={() => handleTransactionTypeSelect('up')}
-                isActive={transactionType === 'up'}
+                onPress={() => handleTransactionTypeSelect("up")}
+                isActive={transactionType === "up"}
               />
               <TransactionTypeButton
                 type="down"
                 title="Outcome"
-                onPress={() => handleTransactionTypeSelect('down')}
-                isActive={transactionType === 'down'}
+                onPress={() => handleTransactionTypeSelect("down")}
+                isActive={transactionType === "down"}
               />
             </TransactionTypes>
             <CategorySelectButton
@@ -129,5 +142,5 @@ export function Register() {
         </Modal>
       </Container>
     </TouchableWithoutFeedback>
-  )
+  );
 }
