@@ -43,6 +43,7 @@ export function Home() {
     ]);
     console.log(`Voce clicou em remover o participante ${name}`);
   }
+  console.log('Rodando o projeto pelo dispositivo físico');
   return (
     <View style={styles.container}>
       <Text style={styles.eventName}>Nome do Evento</Text>
@@ -59,6 +60,16 @@ export function Home() {
           <Text style={styles.buttonText}>+</Text>
         </TouchableOpacity>
       </View>
+
+      {/* <ScrollView showsVerticalScrollIndicator={false}>
+        {participants.map(participant => (
+          <Participant
+            key={participant}
+            name={participant}
+            onRemove={() => handleParticipantRemove(participant)}
+          />
+        ))}
+      </ScrollView> */}
 
       <FlatList
         data={participants}
