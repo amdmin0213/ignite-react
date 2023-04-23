@@ -1,9 +1,6 @@
-import { Container, Title } from './styles';
+import { Container } from './styles';
+// import * as S from './styles';
 
 export function Groups() {
-  return (
-    <Container>
-      <Title>Group</Title>
-    </Container>
-  );
+  return <Container></Container>;
 }
