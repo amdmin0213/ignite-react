@@ -5,6 +5,7 @@ import { GroupCard } from '@components/GroupCard';
 import { ListEmpty } from '@components/ListEmpty';
 import { useState } from 'react';
 import { FlatList } from 'react-native';
+import { Button } from '@components/Button';
 // import * as S from './styles';
 
 export function Groups() {
@@ -22,6 +23,7 @@ export function Groups() {
           <ListEmpty message="Que tal cadastrar a primeira turma?" />
         )}
       />
+      <Button title="Criar nova turma" />
     </Container>
   );
 }
