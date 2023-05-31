@@ -12,7 +12,7 @@ export function NewGroup() {
         <Icon />
         <Highlight
           title="Nova turma"
-          subtitle="crie a turma para adicionar as pessoas"
+          subtitle="Crie uma turma para adicionar as pessoas."
         />
         <Input placeholder="Nome da turma" />
         <Button title="Criar" style={{ marginTop: 20 }} />
