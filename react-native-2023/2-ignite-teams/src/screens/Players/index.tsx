@@ -3,6 +3,7 @@ import { Container } from './styles';
 import { Highlight } from '@components/Highlight';
 import { Button } from '@components/Button';
 import { Input } from '@components/Input';
+import { ButtonIcon } from '@components/ButtonIcon';
 
 export function Players() {
   return (
@@ -12,6 +13,7 @@ export function Players() {
         title="Nome da turma"
         subtitle="Adicione a galera e separe os times"
       />
+      <ButtonIcon />
     </Container>
   );
 }
