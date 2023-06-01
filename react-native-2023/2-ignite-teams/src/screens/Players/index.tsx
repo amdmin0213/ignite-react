@@ -60,7 +60,7 @@ export function Players() {
         )}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={[
-          { paddingBottom: 100 },
+          { paddingBottom: 50 },
           players.length === 0 && { flex: 1 }
         ]}
       />
