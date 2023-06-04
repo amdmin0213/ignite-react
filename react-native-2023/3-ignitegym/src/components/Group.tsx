@@ -1,17 +1,33 @@
-import { Text } from 'native-base';
-type Props = {
+import { Text, Pressable, IPressableProps } from 'native-base';
+type Props = IPressableProps & {
   name: string;
 };
 
-export function Group({ name }: Props) {
+export function Group({ name, ...rest }: Props) {
   return (
-    <Text
-      color="gray.200"
-      textTransform="uppercase"
-      fontSize="xs"
-      fontWeight="bold"
+    <Pressable
+      mr={3}
+      w={24}
+      h={10}
+      bg="gray.600"
+      rounded="md"
+      alignItems="center"
+      justifyContent="center"
+      overflowX="hidden"
+      _pressed={{
+        borderColor: 'green.500',
+        borderWidth: 1
+      }}
+      {...rest}
     >
-      {name}
-    </Text>
+      <Text
+        color="gray.200"
+        textTransform="uppercase"
+        fontSize="xs"
+        fontWeight="bold"
+      >
+        {name}
+      </Text>
+    </Pressable>
   );
 }
