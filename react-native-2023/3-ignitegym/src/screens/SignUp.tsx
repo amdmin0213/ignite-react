@@ -37,7 +37,7 @@ export function SignUp() {
           <Button title="Criar e acessar" />
         </Center>
 
-        <Button mt={24} title="Criar conta" variant="outline" />
+        <Button mt={24} title="Voltar para o Login" variant="outline" />
       </VStack>
     </ScrollView>
   );
