@@ -17,9 +17,23 @@ const PHOTO_SIZE = 33;
 
 export function Profile() {
   const [photoIsLoading, setPhotoIsLoading] = useState(false);
+  const [userPhoto, setUserPhoto] = useState(
+    'https://github.com/diegohfcelestino.png'
+  );
 
   async function handleUserPhotoSelect() {
-    await ImagePicker.launchImageLibraryAsync();
+    const photoSelected = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      quality: 1,
+      aspect: [4, 4],
+      allowsEditing: true
+      // base64: true
+    });
+
+    if (photoSelected.canceled) {
+      return;
+    }
+    setUserPhoto(photoSelected.assets[0].uri);
   }
 
   return (
@@ -37,7 +51,7 @@ export function Profile() {
             />
           ) : (
             <UserPhoto
-              source={{ uri: 'https://github.com/diegohfcelestino.png' }}
+              source={{ uri: userPhoto }}
               alt="Imagem do usuário"
               size={PHOTO_SIZE}
             />
