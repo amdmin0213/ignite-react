@@ -50,8 +50,15 @@ export function SignUp() {
     navigation.goBack();
   }
 
-  function handleSingnUp(data: FormDataProps) {
-    console.log(data);
+  function handleSingnUp({ name, email, password }: FormDataProps) {
+    fetch('http://192.168.0.39:3333/users', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name, email, password })
+    });
   }
 
   return (
