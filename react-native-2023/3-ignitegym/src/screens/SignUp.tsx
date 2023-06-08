@@ -27,7 +27,7 @@ const signUpSchema = yup.object({
   password_confirm: yup
     .string()
     .required('Confirme a senha')
-    .oneOf([yup.ref('password'), null], 'A confirmação de senha não confere')
+    .oneOf([yup.ref('password')], 'A confirmação de senha não confere')
 });
 
 export function SignUp() {
@@ -50,8 +50,8 @@ export function SignUp() {
     navigation.goBack();
   }
 
-  function handleSingnUp({ name, email, password }: FormDataProps) {
-    fetch('http://192.168.0.39:3333/users', {
+  async function handleSingnUp({ name, email, password }: FormDataProps) {
+    const response = await fetch('http://192.168.0.39:3333/users', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -59,6 +59,8 @@ export function SignUp() {
       },
       body: JSON.stringify({ name, email, password })
     });
+    const data = await response.json();
+    console.log(data);
   }
 
   return (
