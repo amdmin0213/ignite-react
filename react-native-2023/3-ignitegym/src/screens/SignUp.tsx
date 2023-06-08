@@ -67,7 +67,7 @@ export function SignUp() {
           resizeMode="contain"
           position="absolute"
         />
-        <Center my={24}>
+        <Center my={20}>
           <LogoSvg />
           <Text color="gray.100" fontSize="sm">
             Treine sua mente e o seu corpo
@@ -143,7 +143,7 @@ export function SignUp() {
         </Center>
 
         <Button
-          mt={24}
+          mt={12}
           title="Voltar para o Login"
           variant="outline"
           onPress={handleGoBack}
