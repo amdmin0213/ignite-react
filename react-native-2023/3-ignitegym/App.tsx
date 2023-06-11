@@ -24,10 +24,12 @@ export default function App() {
       />
       <AuthContext.Provider
         value={{
-          id: '1',
-          name: 'Diego Henrique',
-          email: 'diego@teste.com',
-          avatar: 'diego.png'
+          user: {
+            id: '1',
+            name: 'Diego Henrique',
+            email: 'diego@teste.com',
+            avatar: 'diego.png'
+          }
         }}
       >
         {fontsLoaded ? <Routes /> : <Loading />}
