@@ -8,7 +8,7 @@ import { useAuth } from '@hooks/useAuth';
 export function Routes() {
   const { colors } = useTheme();
 
-  const user = useAuth();
+  const { user } = useAuth();
   console.log('contextData user', user);
 
   const theme = DefaultTheme;
