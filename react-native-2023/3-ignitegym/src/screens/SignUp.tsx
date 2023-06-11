@@ -1,8 +1,15 @@
-import { VStack, Image, Text, Center, Heading, ScrollView } from 'native-base';
+import {
+  VStack,
+  Image,
+  Text,
+  Center,
+  Heading,
+  ScrollView,
+  useToast
+} from 'native-base';
 import { useForm, Controller } from 'react-hook-form';
 import { useNavigation } from '@react-navigation/native';
 import LogoSvg from '@assets/logo.svg';
-import axios from 'axios';
 
 import { api } from '@services/api';
 
@@ -13,6 +20,7 @@ import { Button } from '@components/Button';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Alert } from 'react-native';
+import { AppError } from '@utils/AppError';
 
 type FormDataProps = {
   name: string;
@@ -36,6 +44,7 @@ const signUpSchema = yup.object({
 
 export function SignUp() {
   const navigation = useNavigation();
+  const toast = useToast();
   const {
     control,
     handleSubmit,
@@ -54,14 +63,22 @@ export function SignUp() {
     navigation.goBack();
   }
 
-  async function handleSingnUp({ name, email, password }: FormDataProps) {
+  async function handleSignUp({ name, email, password }: FormDataProps) {
     try {
       const response = await api.post('/users', { name, email, password });
       console.log(response.data);
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        Alert.alert(error.response?.data.message);
-      }
+      const isAppError = error instanceof AppError;
+
+      const title = isAppError
+        ? error.message
+        : 'Não foi possível criar a conta. Tente novamente mais tarde';
+
+      toast.show({
+        title,
+        placement: 'top',
+        bgColor: 'red.500'
+      });
     }
 
     //Abaixo está utilizando o fetch
@@ -152,7 +169,7 @@ export function SignUp() {
                 secureTextEntry
                 onChangeText={onChange}
                 value={value}
-                onSubmitEditing={handleSubmit(handleSingnUp)}
+                onSubmitEditing={handleSubmit(handleSignUp)}
                 returnKeyType="send"
                 errorMessage={errors.password_confirm?.message}
               />
@@ -161,7 +178,7 @@ export function SignUp() {
 
           <Button
             title="Criar e acessar"
-            onPress={handleSubmit(handleSingnUp)}
+            onPress={handleSubmit(handleSignUp)}
           />
         </Center>
 
