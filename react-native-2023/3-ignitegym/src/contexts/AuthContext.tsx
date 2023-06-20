@@ -1,7 +1,10 @@
 import { UserDTO } from '@dtos/UserDTO';
 import { api } from '@services/api';
 import { ReactNode, createContext, useEffect, useState } from 'react';
-import { storageAuthTokenSave } from '@storage/storageAuthToken';
+import {
+  storageAuthTokenGet,
+  storageAuthTokenSave
+} from '@storage/storageAuthToken';
 import {
   storageUserSave,
   storageUserGet,
@@ -69,8 +72,9 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
   async function loadUserData() {
     try {
       const userLogged = await storageUserGet();
+      const token = await storageAuthTokenGet();
 
-      if (userLogged) {
+      if (token && userLogged) {
         setUser(userLogged);
       }
     } catch (error) {
